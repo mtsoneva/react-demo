@@ -9,7 +9,7 @@ const Logo = styled('img')``;
 
 function Navbar() {
     return (
-        <AppBar position="static">
+        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Logo src={logo} alt="logo" sx={{ maxWidth: 80 }} />
                 <Button color="inherit">Login</Button>
