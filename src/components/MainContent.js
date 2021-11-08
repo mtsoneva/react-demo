@@ -25,7 +25,16 @@ function MainContent() {
 
     useEffect(() => {
         axios.get(trendingProductsApi).then(result => {
-            setTrendingProducts(result.data.results.map(x => ({sku: x.sku, name: x.names.title, image: x.images.standard})));
+            setTrendingProducts(result.data.results.map(x => ({
+                sku: x.sku,
+                name: x.names.title,
+                image: x.images.standard,
+                customerReviewAverage:
+                    x.customerReviews.averageScore,
+                    customerReviewCount: x.customerReviews.count,
+                    salePrice: x.prices.current,
+                    regularPrice: x.prices.regular
+            })));
         })
     }, [trendingProductsApi])
 
