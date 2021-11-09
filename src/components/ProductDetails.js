@@ -11,8 +11,8 @@ function ProductDetails({ product }) {
             <ProductDescription text={product.shortDescription} />
             <ProductRating rating={product.customerReviewAverage} ratingCount={product.customerReviewCount} />
             <ProductPrice regularPrice={product.regularPrice} salePrice={product.salePrice} />
-            <Availability orderable={product.orderable} />
-            <ShippingOptions options={product.shippingLevelsOfService} />
+            <Availability inStoreAvailability={product.inStoreAvailability} />
+            <ShippingOptions options={product.shipping} />
             <div>
                 <h4>Manufacturer</h4>
                 <span>{product.manufacturer}</span>

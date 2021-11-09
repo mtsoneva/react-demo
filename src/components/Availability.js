@@ -1,10 +1,12 @@
 import { makeStyles } from '@mui/styles';
 
-function Availability({orderable}) {
+function Availability({ inStoreAvailability }) {
     const styles = useStyles();
 
     return (
-        <span className={styles.chip}>{orderable}</span>
+        <>
+            {inStoreAvailability && <span className={styles.chip}>In stock</span>}
+        </>
     )
 }
 
@@ -12,7 +14,7 @@ export default Availability;
 
 const useStyles = makeStyles({
     chip: {
-        backgroundColor: 'red',
+        backgroundColor: 'green',
         color: 'white',
         padding: '5px',
         borderRadius: '3px'

@@ -7,6 +7,7 @@ import { Container } from '@mui/material';
 import ProductImageGallery from './ProductImageGallery';
 import CircularProgress from '@mui/material/CircularProgress';
 import ProductDetails from './ProductDetails';
+import AdditionalInfo from './AdditionalInfo';
 
 
 function Product() {
@@ -17,8 +18,8 @@ function Product() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`https://api.bestbuy.com/v1/products(sku=${sku})?format=json&apiKey=U6193s76u8HnKmClJLZU4hRv`).then(result => {
-            setProduct(result.data.products[0]);
+        axios.get(`https://api.bestbuy.com/v1/products/${sku}.json?apiKey=U6193s76u8HnKmClJLZU4hRv&format=json&show=sku,name,description,longDescription,shortDescription,categoryPath,images,modelNumber,customerReviewAverage,customerReviewCount,includedItemList,features,dollarSavings,regularPrice,salePrice,onSale,onlineAvailabilityText,thumbnailImage,mediumImage,largeImage,image,condition,shipping,manufacturer,inStoreAvailability`).then(result => {
+            setProduct(result.data);
             setIsLoading(false);
         });
     }, [sku])
@@ -40,6 +41,7 @@ function Product() {
                             <ProductImageGallery className={styles.gallery} images={product.images} />
                             <ProductDetails product={product} />
                         </div>
+                        <AdditionalInfo product={product} />
                     </>
                 )
             }
