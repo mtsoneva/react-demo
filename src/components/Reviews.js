@@ -29,14 +29,17 @@ function Reviews({ product }) {
         <>
             {reviews.length > 0 && users.map((user, index) => {
                 return <AccordionDetails key={user.id} className={styles.section}>
-                <div className={styles.table}>
-                    <div className={styles.leftCol}>
-                        <UserBadge user={user} />
-                    </div>
+                    <div className={styles.table}>
+                        <div className={styles.leftCol}>
+                            <UserBadge user={user} />
+                        </div>
 
-                    <div className={styles.rightCol}>
-                        {reviews[index].body}
-                    </div>
+                        <div className={styles.rightCol}>
+                            <h4>
+                                {reviews[index].title}
+                            </h4>
+                            {reviews[index].body}
+                        </div>
                     </div>
                 </AccordionDetails>;
             })}

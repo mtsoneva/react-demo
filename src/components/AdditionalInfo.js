@@ -6,6 +6,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { makeStyles } from '@mui/styles';
 import Reviews from './Reviews';
 import ProductRating from './ProductRating';
+import AddReview from './AddReview';
 
 function AdditionalInfo({ product }) {
     const styles = useStyles();
@@ -72,6 +73,7 @@ function AdditionalInfo({ product }) {
                         </div>
                     </Typography>
                 </AccordionSummary>
+                <AddReview />
                 <Reviews product={product} />
             </Accordion>
         </div>
