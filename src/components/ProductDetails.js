@@ -14,10 +14,10 @@ function ProductDetails({ product }) {
             <Availability inStoreAvailability={product.inStoreAvailability} />
             <ShippingOptions options={product.shipping} />
             <div>
-                <h4>Manufacturer</h4>
+                <div>Manufacturer</div>
                 <span>{product.manufacturer}</span>
             </div>
-            <AddToCartButton />
+            <AddToCartButton sku={product.sku} />
         </div>
     )
 }

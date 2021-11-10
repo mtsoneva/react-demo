@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 const Logo = styled('img')``;
 
 function Navbar() {
-    const num = useSelector(state => state.cart);
+    const itemsInCart = useSelector(state => state.cart);
     return (
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -20,7 +20,7 @@ function Navbar() {
                 </Link>
                 <div>
                     <Button color="inherit">
-                        <Badge badgeContent={num} color="warning">
+                        <Badge badgeContent={itemsInCart.length} color="warning">
                             <ShoppingCartIcon />
                         </Badge>
                     </Button>
