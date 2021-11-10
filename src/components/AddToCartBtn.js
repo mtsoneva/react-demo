@@ -1,14 +1,23 @@
 import { Button } from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { makeStyles } from '@mui/styles';
-
+import { add } from '../actions';
+import { useDispatch } from 'react-redux';
 
 function AddToCartBtn() {
     const styles = useStyles();
+    const dispatch = useDispatch();
 
     return (
         <div>
-            <Button variant="contained" startIcon={<ShoppingCartIcon />} className={styles.btn}>Add to cart</Button>
+            <Button
+                variant="contained"
+                startIcon={<ShoppingCartIcon />}
+                className={styles.btn}
+                onClick={() => dispatch(add())}
+            >
+                Add to cart
+            </Button>
         </div>
     )
 }
