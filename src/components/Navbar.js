@@ -8,9 +8,13 @@ import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Badge from '@mui/material/Badge';
 import { useSelector } from 'react-redux';
+import { makeStyles } from '@mui/styles';
+
 const Logo = styled('img')``;
 
 function Navbar() {
+    const styles = useStyles();
+
     const itemsInCart = useSelector(state => state.cart);
     return (
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -21,7 +25,9 @@ function Navbar() {
                 <div>
                     <Button color="inherit">
                         <Badge badgeContent={itemsInCart.length} color="warning">
-                            <ShoppingCartIcon />
+                            <Link to="/cart" className={styles.link} >
+                                <ShoppingCartIcon />
+                            </Link>
                         </Badge>
                     </Button>
                     <Button color="inherit">Login</Button>
@@ -32,3 +38,10 @@ function Navbar() {
 }
 
 export default Navbar;
+
+const useStyles = makeStyles({
+    link: {
+        color: 'inherit'
+    }
+})
+

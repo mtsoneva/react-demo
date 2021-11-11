@@ -57,11 +57,12 @@ const useStyles = makeStyles({
         fontWeight: 600
     },
     progressContainer: {
+        marginTop: 50,
         display: 'flex',
         justifyContent: 'center',
         '& span': {
-            width: '200px!important',
-            height: '200px!important'
+            width: '100px!important',
+            height: '100px!important'
         }
     },
     gallery: {
