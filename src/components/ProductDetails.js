@@ -17,7 +17,7 @@ function ProductDetails({ product }) {
                 <div>Manufacturer</div>
                 <span>{product.manufacturer}</span>
             </div>
-            <AddToCartButton sku={product.sku} />
+            <AddToCartButton sku={product.sku} name={product.name} />
         </div>
     )
 }

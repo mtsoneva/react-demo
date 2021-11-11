@@ -4,6 +4,8 @@ import './styles/App.scss';
 import Product from './components/Product';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import "react-image-gallery/styles/scss/image-gallery.scss";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
       <Navbar />
       <Route path="/product/:sku" component={Product} />
       <Route path="/" exact component={HomePage} />
+      <ToastContainer />
     </Router>
   );
 }

@@ -1,12 +1,18 @@
 import { Button } from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { makeStyles } from '@mui/styles';
-import { add } from '../actions';
+import { addToCart } from '../actions';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
-function AddToCartBtn({ sku }) {
+function AddToCartBtn({ sku, name }) {
     const styles = useStyles();
     const dispatch = useDispatch();
+
+    const handleAddToCart = () => {
+        dispatch(addToCart(sku));
+        toast.success(`${name} has been added to the cart`, { hideProgressBar: true, });
+    }
 
     return (
         <div>
@@ -14,7 +20,7 @@ function AddToCartBtn({ sku }) {
                 variant="contained"
                 startIcon={<ShoppingCartIcon />}
                 className={styles.btn}
-                onClick={() => dispatch(add(sku))}
+                onClick={handleAddToCart}
             >
                 Add to cart
             </Button>

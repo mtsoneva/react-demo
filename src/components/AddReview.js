@@ -7,6 +7,7 @@ import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Button } from "@mui/material";
+import { toast } from 'react-toastify';
 
 function AddReview() {
     const styles = useStyles();
@@ -34,14 +35,13 @@ function AddReview() {
     }
 
     const postReview = () => {
-        console.log('post');
         setIsLoading(true);
         axios.post('http://httpbin.org/anything', review).then(() => {
             setRating('');
             setTitle('');
             setReviewText('');
             setIsLoading(false);
-            //TODO toast
+            toast.success("Your review is sent for approval", { hideProgressBar: true, });
         })
     }
 
@@ -53,6 +53,7 @@ function AddReview() {
                     value={rating}
                     onChange={handleRatingChange}
                     disabled={isLoading}
+                    precision={0.5}
                 />
                 <TextField
                     id="outlined-multiline-flexible"

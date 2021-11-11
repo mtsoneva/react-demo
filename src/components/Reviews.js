@@ -54,7 +54,7 @@ const useStyles = makeStyles({
         marginTop: 10
     },
     section: {
-        borderTop: '1px solid grey',
+        borderTop: '1px solid #D9D9DB',
     },
     table: {
         display: 'flex'
