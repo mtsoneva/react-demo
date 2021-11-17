@@ -10,6 +10,7 @@ import { deleteItem } from '../actions';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { makeStyles } from '@mui/styles';
+import { Link } from 'react-router-dom';
 
 
 function CartItems({ items }) {
@@ -47,9 +48,11 @@ function CartItems({ items }) {
                                     <img src={item.image} alt="" className={styles.img} />
                                 </TableCell>
                                 <TableCell align="left">
-                                    <span>
-                                        {item.name}
-                                    </span>
+                                    <Link to={`/product/${item.sku}`} className={styles.link}>
+                                        <span>
+                                            {item.name}
+                                        </span>
+                                    </Link>
                                 </TableCell>
                                 <TableCell align="left">
                                     ${item.salePrice}
@@ -87,5 +90,8 @@ const useStyles = makeStyles({
     },
     cell: {
         textAlign: 'center !important'
+    },
+    link: {
+        textDecoration: 'none'
     }
 })
