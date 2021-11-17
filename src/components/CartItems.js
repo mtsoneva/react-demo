@@ -15,11 +15,9 @@ import { Link } from 'react-router-dom';
 
 function CartItems({ items }) {
     const styles = useStyles();
-    console.log(items)
     const dispatch = useDispatch();
 
     function totalPrice(item) {
-        console.log(item)
         return item.salePrice * item.quantity;
     }
 

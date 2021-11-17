@@ -13,7 +13,7 @@ function ProductCard({ item }) {
     const styles = useStyles();
 
     return (
-        <Grid item >
+        <Grid item className={styles.item}>
             <Link to={`/product/${item.sku}`} className={styles.link}>
                 <Card sx={{ maxWidth: 250, maxHeight: 400, p: 2 }} className={styles.card}>
                     <CardMedia
@@ -47,7 +47,10 @@ const useStyles = makeStyles({
         }
     },
     px0: {
-        paddingLeft: 0,
-        paddingRight: 0
+        paddingLeft: '0 !important',
+        paddingRight: '0 !important'
+    },
+    item: {
+        width: '20%'
     }
 })

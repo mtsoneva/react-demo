@@ -7,7 +7,7 @@ function ProductRating({ rating, ratingCount }) {
     return (
         <div className={classes.ratingRow}>
             <Rating name="read-only" value={rating} readOnly precision={0.1} />
-            {rating} ({ratingCount})
+            <span>{rating} ({ratingCount})</span>
         </div>
     )
 }
@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     ratingRow: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexWrap: 'wrap'
     }
 })
