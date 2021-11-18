@@ -4,12 +4,7 @@ import CategoryTree from './CategoryTree';
 
 const sidebarWidth = 300;
 
-export default function Sidebar({ fetchProducts }) {
-
-    function selectCateory(id, name) {
-        fetchProducts(id, name);
-    }
-
+export default function Sidebar({ onCategoryChange, categoryId }) {
     return (
         <Drawer
             variant="permanent"
@@ -20,7 +15,7 @@ export default function Sidebar({ fetchProducts }) {
             }}
         >
             <Toolbar />
-            <CategoryTree categoryId="cat00000" selectCateory={selectCateory} />
+            <CategoryTree categoryId={categoryId} selectCateory={onCategoryChange} />
         </Drawer>
     )
 }

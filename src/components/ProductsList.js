@@ -2,13 +2,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import ProductsGrid from './ProductsGrid';
+import Pagination from '@mui/material/Pagination';
+import { makeStyles } from '@mui/styles';
 
-function ProductsList({ products, categoryName, isLoading }) {
+
+function ProductsList({ products, categoryName, isLoading, changePage }) {
+    const styles = useStyles();
+
     return (
         <>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1, p: 2, width: '100%' }}>
                 <Toolbar />
-
                 {isLoading
                     ? (
                         <div>
@@ -16,12 +20,14 @@ function ProductsList({ products, categoryName, isLoading }) {
                         </div>)
                     : (
                         <>
-                        <ProductsGrid items={products.products} header={categoryName} />
-                            {/* <div>
-                                {products.products.map(prod => {
-                                    return <div>{prod.name}</div>
-                                })}
-                            </div> */}
+                            <ProductsGrid items={products.products} header={categoryName} />
+                            <Pagination
+                                count={products.totalPages}
+                                page={products.currentPage}
+                                onChange={(event, value) => { changePage(value) }}
+                                color="primary"
+                                className={styles.pagination}
+                            />
                         </>
                     )
                 }
@@ -31,3 +37,9 @@ function ProductsList({ products, categoryName, isLoading }) {
 }
 
 export default ProductsList;
+
+const useStyles = makeStyles({
+    pagination: {
+        marginTop: 20
+    }
+})
