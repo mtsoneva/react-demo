@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Search from './Search';
 import ProductsGrid from './ProductsGrid';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@mui/styles';
+import ProductsList from './ProductsList';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-
+function useQuery() {
+    const { search } = useLocation();
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+}
 function MainContent() {
     const styles = useStyles();
 
@@ -20,7 +24,13 @@ function MainContent() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [dailyDeals, setDailyDeals] = useState([]);
-    const [trendingProducts, setTrendingProducts] = useState([])
+    const [trendingProducts, setTrendingProducts] = useState([]);
+
+    const [products, setProducts] = useState(null);
+    const query = useQuery();
+    const navigate = useNavigate();
+    const page = query.get('page');
+    const searchQuery = query.get('search');
 
     useEffect(() => {
         setIsLoading(true);
@@ -48,21 +58,43 @@ function MainContent() {
         })
     }, [trendingProductsApi])
 
+    function fetchProducts(searchQuery) {
+        setIsLoading(true);
+        navigate(`/?search=${searchQuery}&page=${page ? page : 1}`)
+        axios.get(`https://api.bestbuy.com/v1/products((search=${searchQuery}))?page=${page ? page : 1}&apiKey=U6193s76u8HnKmClJLZU4hRv&sort=name.asc&format=json`).then(response => {
+            setProducts(response.data)
+            console.log(response.data);
+            setIsLoading(false);
+        })
+    }
+
+    useEffect(() => {
+        if (searchQuery) {
+            fetchProducts(searchQuery);
+        }
+    }, [searchQuery, page])
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1, p: 2, width: '100%' }}>
-            <Toolbar />
-            <Search />
+            <Search fetchProducts={fetchProducts} />
             {isLoading
                 ? (
                     <div className={styles.progressContainer}>
                         <CircularProgress />
                     </div>)
-                : (
-                    <>
-                        <ProductsGrid items={trendingProducts} header={trendingProductsHeader} />
-                        <ProductsGrid items={dailyDeals} header={dailyDealsHeader} />
-                    </>
-                )
+                : products
+                    ? (
+                        <ProductsList products={products}
+                            categoryName={`Results for ${searchQuery}`}
+                            isLoading={isLoading}
+                            changePage={(page) => { navigate(`/?search=${searchQuery}&page=${page}`);  }}></ProductsList>
+                    )
+                    : (
+                        <>
+                            <ProductsGrid items={trendingProducts} header={trendingProductsHeader} />
+                            <ProductsGrid items={dailyDeals} header={dailyDealsHeader} />
+                        </>
+                    )
             }
         </Box>
     )

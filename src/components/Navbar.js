@@ -30,7 +30,9 @@ function Navbar() {
                             </Link>
                         </Badge>
                     </Button>
-                    <Button color="inherit">Login</Button>
+                    <Link to="/login">
+                        <Button color="inherit">Login</Button>
+                    </Link>
                 </div>
             </Toolbar>
         </AppBar>

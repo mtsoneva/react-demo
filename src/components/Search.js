@@ -1,31 +1,17 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import axios from 'axios';
 
-export default function Search() {
+export default function Search({ fetchProducts }) {
     const [searchQuery, setSearchQuery] = useState('');
 
-    const [results, setResults] = useState({});
-
-    const handleSearch = () => {
-        getProducts();
-    }
-    const onInputKeyPress = (e) => {
+    function onInputKeyPress(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
-            handleSearch();
+            fetchProducts(searchQuery);
         }
-    }
-
-    const getProducts = () => {
-        console.log(searchQuery);
-        axios.get(`https://api.bestbuy.com/v1/products((search=${searchQuery}))?apiKey=U6193s76u8HnKmClJLZU4hRv&sort=name.asc&format=json`).then(response => {
-            setResults(response.data)
-        })
-        console.log(results);
     }
 
     return (
@@ -41,10 +27,13 @@ export default function Search() {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
             />
-            <IconButton sx={{ p: '10px' }} aria-label="search" onClick={handleSearch} >
+            <IconButton
+                sx={{ p: '10px' }}
+                aria-label="search"
+                onClick={() => { fetchProducts(searchQuery) }}
+            >
                 <SearchIcon />
             </IconButton>
-            {}
         </Paper>
     )
 }

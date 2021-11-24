@@ -4,7 +4,8 @@ import Sidebar from './Sidebar';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 import ProductsList from './ProductsList';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Toolbar from '@mui/material/Toolbar';
 
 const rootCategory = 'cat00000';
 
@@ -15,7 +16,7 @@ function useQuery() {
 
 export default function HomePage() {
     const query = useQuery();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [products, setProducts] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -45,18 +46,22 @@ export default function HomePage() {
         <Box sx={{ display: 'flex' }}>
             <Sidebar
                 onCategoryChange={(id, name) => {
-                    history.push(`/?categoryId=${id}&page=1&categoryName=${name}`)
+                    navigate(`/?categoryId=${id}&page=1&categoryName=${name}`)
                 }}
                 categoryId={rootCategory}
             />
             <div>
+                <Toolbar />
                 {products
-                    ? <ProductsList
-                        products={products}
-                        categoryName={categoryName}
-                        isLoading={isLoading}
-                        changePage={(page) => {history.push(`/?categoryId=${categoryId}&page=${page}&categoryName=${categoryName}`)}}
-                    />
+                    ?
+                    <>
+                        <ProductsList
+                            products={products}
+                            categoryName={categoryName}
+                            isLoading={isLoading}
+                            changePage={(page) => { navigate(`/?categoryId=${categoryId}&page=${page}&categoryName=${categoryName}`) }}
+                        />
+                    </>
                     : <MainContent />
                 }
             </div>
